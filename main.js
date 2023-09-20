@@ -1,56 +1,78 @@
-canvas = document.getElementById("myCanvas");
-ctx= canvas.getContext("2d");
+var mouseEvent = "empty";
+
+canvas = document.getElementById('myCanvas');
+ctx = canvas.getContext("2d");
+
+color = "black";
+width_of_line = 2;
+
+/*Uncomment the correct line*/
+canvas.addEventListener("mousedown", my_mousedown);
+//canvas.setEventListener("mousedown", my_mousedown);
+//canvas.getEventListener("mousedown", my_mousedown);
+
+function my_mousedown(e) {
+    color = document.getElementById("color").value;
+    width_of_line = document.getElementById("width_of_line").value;
+    radius = document.getElementById("radius").value;
+    mouseEvent = "mousedown";
+    if (mouseEvent == "mousedown") {
+        console.log("Current position of x and y coordinates = ");
+        console.log("x  = " + current_position_of_mouse_x + "y = " + current_position_of_mouse_y);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width_of_line;
+        ctx.arc(current_position_of_mouse_x, current_position_of_mouse_y, radius, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+}
+
 
 /*
-    Use beginPath() function to begin a path.
-    Then, use strokeStyle to set the color to "grey".
-    Use lineWidth and set the width to 1.
-    Use rect() to create a rectangle at 150 and 143
-with 430 width and 200 height.
+Create an event listener for "mousemove"
+and call function my_mousemove
 */
-ctx.beginPath()
-ctx.strokeStyle = "grey";
-ctx.lineWidth = 1;
-ctx.rect(150, 143, 430, 200);
-ctx.stroke();
+canvas.addEventListener("mousemove" , my_mousemove);
+function my_mousemove(e) {
+    /*Uncomment the correct line*/
+    current_position_of_mouse_x = e.clientX - canvas.offsetLeft;
+        //current_position_of_mouse_x = e.clientX - canvas.offsetRight;
+        //current_position_of_mouse_x = e.clientX - canvas.offsetBottom;
 
-/*
-    Use beginPath() function to begin a path.
-    Then, use strokeStyle to set the color to "blue".
-    Use lineWidth and set the width to 5.
-    Use arc() to create a circle at x = 250 and y = 210
-with 40 as radius, 0 startAngle and 2 * Math.PI endAngle.
+        /*
+        create current_position_of_mouse_y and
+        assign it e.clientY - canvas.offsetTop;
+        */current_position_of_mouse_y = e.clientY - canvas.offsetTop;
+
+
+}
+
+/*Create an event listener for "mouseup"
+and call function my_mouseup
+ 
+Create a function named my_mouseup with
+event e as parameter.
+ 
+Assign "mouseUP" to mouseEvent
+within the function
 */
+canvas.addEventListener("mouseup", my_mouseup)
+function my_mouseup(e) {
 
-ctx.beginPath();
-ctx.strokeStyle = "blue";
-ctx.lineWidth = 5;
-ctx.arc(250, 210, 40, 0, 2 * Math.PI  );
-ctx.stroke();
+}
+/*Create an event listener for "mouseleave"
+and call function my_mouseleave
 
-// Similarly, create a black circle with position 350 and 210
-ctx.beginPath();
-ctx.strokeStyle = "black";
-ctx.lineWidth = 5;
-ctx.arc(350, 210, 40, 0, 2 * 180 );
-ctx.stroke();
-// Similarly, create a red circle with position 210 and 40
+Create a function named my_mouseleave with
+event e as parameter.
+ 
+Assign "mouseleave" to mouseEvent
+within the function
+*/
+canvas.addEventListener("mouseleave", my_mouseleave)
+function my_mouseleave(e) {
 
-// Similarly, create an orange circle with position 300 and 250
-ctx.beginPath();
-ctx.strokeStyle = "yellow";
-ctx.lineWidth = 5;
-ctx.arc(300, 250, 40, 0, 2 * 180 );
-ctx.stroke();
-// Similarly, create a green circle with position 400 and 250
-ctx.beginPath();
-ctx.strokeStyle = "green";
-ctx.lineWidth = 5;
-ctx.arc(400, 250, 40, 0, 2 * 180 );
-ctx.stroke();
-
-ctx.beginPath();
-ctx.strokeStyle = "red";
-ctx.lineWidth = 5;
-ctx.arc(450, 210, 40, 0, 2 * 180 );
-ctx.stroke();
+}
+function clearArea() {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
